@@ -1,0 +1,106 @@
+---
+title: La relación entre la corrupción y la violencia en el Perú I
+author: Kilder Urrutia
+date: '2020-06-06'
+slug: la-relación-entre-la-corrupción-y-la-violencia-en-el-perú-i
+categories:
+  - Corrupción
+  - Violencia
+tags:
+  - Corrupcion y violencia
+  - R
+  - Antropología
+  - Econometría
+---
+
+## La corrupción y la violencia
+
+La violencia es parte de la identidad de los peruanos. Somos violentos con nosotros mismos: Nuestros prejuicios nos llevan a despreciarnos a nosotros mismos, a negarnos las mismas oportunidades, a vernos con los mismos ojos con los que vemos a los que creemos son de alguna manera mejores: a los gringos, a los blancos, a los bellos (). Somos violentos con los demás: Perú es uno de los países más peligrosos del mundo, tanto en general (), como para las mujeres (), los niños (), los viejos () o los hombres ().
+
+
+
+También, creciendo día a día y alrededor nuestro, el proxenetismo, la trata de personas.
+
+Detrás de todo esto, siempre encontramos la corrupción.
+La corrupción nutre y mantiene la violencia. Parafraseando a Beyerle (2011), la corrupción perpetua la violencia, la pobreza la vuelve endémica, y la fragmentación de los valores sociales impide un esfuerzo concertado contra esta.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message = FALSE)
+
+# Graphs
+
+library(tidyverse)
+library(leaflet)
+library(ggthemes)
+library(ggthemr)
+
+# tables
+library(kableExtra)
+library(gt)
+
+# formatting
+library(scales)
+```
+
+## Midiendo la violencia
+
+Como vimos, la violencia es un fenómeno sumamente complejo. Centrarnos en 
+
+
+## Midiendo la corrupción
+
+
+## La presencia del Estado
+
+Hablando con una antropóloga que estudia sobre el tema, podemos saber que el mejor indicador directo de la presencia del estado se da en la naturaleza del acceso a agua en las comunidades.
+
+```{r}
+library(readxl)
+geoperu <- read_excel("C:/Users/Kilder/OneDrive/Tesis/raw_data/xls/GEODATA/GeoPeru_Peru_Distritos.xlsx")
+geoperu %>% 
+  mutate(nom_dpto = str_to_title(nom_dpto)) %>% 
+  group_by(nom_dpto) %>% 
+  summarise(hogares_sin_red_agua = sum(vs_agua_rp, na.rm = TRUE),
+            hogares = sum(num_viv_op, na.rm = TRUE),
+            porcentaje = hogares_sin_red_agua/hogares) %>% 
+  arrange(desc(porcentaje)) %>% 
+  gt() %>% 
+  tab_header(title = "El agua en el Perú",
+             subtitle = "Hogares sin acceso a una red de agua en el Perú") %>% 
+  tab_source_note("Fuente: CENSO 2017") %>% 
+  tab_spanner(label = 'Hogares', columns = c('hogares_sin_red_agua', 'hogares', 'porcentaje')) %>% 
+  cols_label(
+    nom_dpto = 'Departamento',
+    hogares_sin_red_agua = 'Sin red de agua',
+    hogares = 'Total',
+    porcentaje = '%'
+  ) %>% 
+  fmt_number(
+    columns = vars(hogares_sin_red_agua, hogares),
+    decimals = 0,
+    use_seps = TRUE
+  ) %>% 
+  fmt_percent(
+    columns = vars(porcentaje),
+    decimals = 1
+  )
+```
+
+```{r}
+
+geoperu %>% 
+  ggplot(
+    aes(x = pvs_agua_r/100, y = almenosu_1/100)
+  ) +
+  geom_point() + 
+  scale_x_continuous(trans = 'logit') +
+  scale_y_continuous(trans = 'logit') +
+  theme_bw() +
+  labs(title = 'Acceso a agua y necesidades insatisfechas',
+       subtitle = 'Según distritos',
+       x = '% de hogares sin acceso a una red de agua',
+       y = '% de hogares con al menos una NBI',
+       caption = "Fuente: CENSO 2017")
+```
+

@@ -1,0 +1,30 @@
+"0","install.packages(""kableExtra"", dependencies = TRUE)
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.6/formattable_0.2.0.1.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 280418 bytes (273 KB)
+"
+"2","downloaded 273 KB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.6/kableExtra_1.1.0.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 1617467 bytes (1.5 MB)
+"
+"2","downloaded 1.5 MB
+
+"
+"1","package ‘formattable’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘kableExtra’ successfully unpacked and MD5 sums checked
+"
+"1","
+"
+"1",""
+"1","The downloaded binary packages are in
+	C:\Users\Kilder\AppData\Local\Temp\RtmpYP7KLY\downloaded_packages"
+"1",""
+"1","
+"
