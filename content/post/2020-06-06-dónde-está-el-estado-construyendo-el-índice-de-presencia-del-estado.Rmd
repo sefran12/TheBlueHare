@@ -24,9 +24,9 @@ Muchas veces nos preguntamos, ¿dónde está el Estado? ¿Dónde muestra más su
 
 ## Primero, hagámonos una idea:
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(knitr)
-knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message = FALSE)
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message = FALSE, fig.width = 10, fig.height = 7)
 
 # read files
 
@@ -60,22 +60,47 @@ library(scales)
 
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 geoperu <- read_excel("C:/Users/Kilder/OneDrive/Tesis/raw_data/xls/GEODATA/GeoPeru_Peru_Distritos.xlsx")
 distritos <- st_read('C:/Users/Kilder/OneDrive/Tesis/raw_data/shapefiles/distritos/DISTRITOS.shp')
 
 geomap <- left_join(distritos, geoperu, by=c("DISTRITO" = "nom_dist"))
 ```
-```{r}
+```{r fig.height=7, fig.width=10}
 geomap %>% 
   ggplot() +
   geom_sf(aes(fill = pvs_agua_r), color = NA, na.rm = FALSE) +
     labs(title ='Acceso a agua en el Perú',
       subtitle = 'Porcentaje de hogares sin acceso a una red de agua',
-         caption = 'CENSO (2013). Elaboración propia.',
+         caption = 'CENSO (2017). Elaboración propia.',
          fill = 'Porcentaje de hogares') +
     theme_minimal() +
   scale_fill_continuous(type = 'viridis') +
     theme(axis.text = element_blank())
 ```
 
+```{r fig.height=7, fig.width=10}
+geomap %>% 
+  ggplot() +
+  geom_sf(aes(fill = nbi3_porc), color = NA, na.rm = FALSE) +
+    labs(title ='Acceso a agua en el Perú',
+      subtitle = 'Porcentaje de hogares sin servicios higiénicos',
+         caption = 'CENSO (2017). Elaboración propia.',
+         fill = 'Porcentaje de hogares') +
+    theme_minimal() +
+  scale_fill_continuous(type = 'viridis') +
+    theme(axis.text = element_blank())
+```
+
+```{r fig.height=7, fig.width=10}
+geomap %>% 
+  ggplot() +
+  geom_sf(aes(fill = p_no_docum), color = NA, na.rm = FALSE) +
+    labs(title ='El derecho a una identidad',
+      subtitle = 'Porcentaje de hogares sin documento alguno',
+         caption = 'CENSO (2017). Elaboración propia.',
+         fill = 'Porcentaje de hogares') +
+    theme_minimal() +
+  scale_fill_continuous(type = 'gradient') +
+    theme(axis.text = element_blank())
+```

@@ -28,86 +28,44 @@ tags:
 <div id="primero-hagámonos-una-idea" class="section level2">
 <h2>Primero, hagámonos una idea:</h2>
 <pre class="r"><code>library(knitr)
-knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message = FALSE)
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message = FALSE, fig.width = 10, fig.height = 7)
 
 # read files
 
 library(readxl)
 
 # data wrangling
-library(tidyverse)</code></pre>
-<pre><code>## -- Attaching packages ------------------------------------------------------------------------------------------------- tidyverse 1.3.0 --</code></pre>
-<pre><code>## v ggplot2 3.3.0     v purrr   0.3.3
-## v tibble  2.1.3     v dplyr   0.8.5
-## v tidyr   1.0.2     v stringr 1.4.0
-## v readr   1.3.1     v forcats 0.5.0</code></pre>
-<pre><code>## -- Conflicts ---------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(broom)
+library(tidyverse)
+library(broom)
 
 # Graphs
 
 library(leaflet)
 library(ggthemes)
 library(ggthemr)
-library(plotly)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;plotly&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     last_plot</code></pre>
-<pre><code>## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter</code></pre>
-<pre><code>## The following object is masked from &#39;package:graphics&#39;:
-## 
-##     layout</code></pre>
-<pre class="r"><code>library(plotlyGeoAssets)
+library(plotly)
+library(plotlyGeoAssets)
 
 # GIS and GEOS
 
-library(sf)</code></pre>
-<pre><code>## Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3</code></pre>
-<pre class="r"><code>library(raster)</code></pre>
-<pre><code>## Loading required package: sp</code></pre>
-<pre><code>## 
-## Attaching package: &#39;raster&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:plotly&#39;:
-## 
-##     select</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     select</code></pre>
-<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
-## 
-##     extract</code></pre>
-<pre class="r"><code># tables
+library(sf)
+library(raster)
 
-library(kableExtra)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;kableExtra&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     group_rows</code></pre>
-<pre class="r"><code>library(gt)
+# tables
+
+library(kableExtra)
+library(gt)
 
 # formatting
 
 library(scales)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;scales&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     discard</code></pre>
-<pre><code>## The following object is masked from &#39;package:readr&#39;:
-## 
-##     col_factor</code></pre>
 <pre><code>## Reading layer `DISTRITOS&#39; from data source `C:\Users\Kilder\OneDrive\Tesis\raw_data\shapefiles\distritos\DISTRITOS.shp&#39; using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 1873 features and 10 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
 ## bbox:           xmin: -81.32823 ymin: -18.35093 xmax: -68.65228 ymax: -0.03860597
 ## CRS:            4326</code></pre>
-<p><img src="/post/2020-06-06-dónde-está-el-estado-construyendo-el-índice-de-presencia-del-estado_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/post/2020-06-06-dónde-está-el-estado-construyendo-el-índice-de-presencia-del-estado_files/figure-html/unnamed-chunk-3-1.png" width="960" /></p>
+<p><img src="/post/2020-06-06-dónde-está-el-estado-construyendo-el-índice-de-presencia-del-estado_files/figure-html/unnamed-chunk-4-1.png" width="960" /></p>
+<p><img src="/post/2020-06-06-dónde-está-el-estado-construyendo-el-índice-de-presencia-del-estado_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
 </div>
