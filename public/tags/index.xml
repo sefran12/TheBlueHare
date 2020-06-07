@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Hugo Cactus Theme</title>
-    <link>/suspicious-booth-2af97b.netlify.com/tags/</link>
-    <description>Recent content in Tags on Hugo Cactus Theme</description>
+    <title>Tags on The Blue Hare</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on The Blue Hare</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>es-PE</language>
     <lastBuildDate>Sat, 06 Jun 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/suspicious-booth-2af97b.netlify.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Antropología</title>
-      <link>/suspicious-booth-2af97b.netlify.com/tags/antropolog%C3%ADa/</link>
+      <link>/tags/antropolog%C3%ADa/</link>
       <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/suspicious-booth-2af97b.netlify.com/tags/antropolog%C3%ADa/</guid>
+      <guid>/tags/antropolog%C3%ADa/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Corrupcion y violencia</title>
-      <link>/suspicious-booth-2af97b.netlify.com/tags/corrupcion-y-violencia/</link>
+      <link>/tags/corrupcion-y-violencia/</link>
       <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/suspicious-booth-2af97b.netlify.com/tags/corrupcion-y-violencia/</guid>
+      <guid>/tags/corrupcion-y-violencia/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Econometría</title>
-      <link>/suspicious-booth-2af97b.netlify.com/tags/econometr%C3%ADa/</link>
+      <link>/tags/econometr%C3%ADa/</link>
       <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/suspicious-booth-2af97b.netlify.com/tags/econometr%C3%ADa/</guid>
+      <guid>/tags/econometr%C3%ADa/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/suspicious-booth-2af97b.netlify.com/tags/r/</link>
+      <link>/tags/r/</link>
       <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/suspicious-booth-2af97b.netlify.com/tags/r/</guid>
+      <guid>/tags/r/</guid>
       <description></description>
     </item>
     

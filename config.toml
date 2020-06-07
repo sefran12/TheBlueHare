@@ -1,7 +1,7 @@
 # Site settings
-baseurl = "suspicious-booth-2af97b.netlify.com/"
-languageCode = "en-us"
-title = "Hugo Cactus Theme"
+baseurl = "/"
+languageCode = "es-PE"
+title = "The Blue Hare"
 theme = "hugo-cactus-theme"
 # Enter your tracking code to enable Google Analytics
 googleAnalytics = ""
