@@ -1,3 +1,3 @@
-[submodule "TheBlueHare"]
-	path = themes/hugo-cactus-theme
-	url = https://github.com/sefran12/TheBlueHare.git
+[submodule "hugo-cactus-theme"]
+	path = hugo-cactus-theme
+	url = https://github.com/digitalcraftsman/hugo-cactus-theme
