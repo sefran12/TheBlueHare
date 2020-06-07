@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="The Blue Hare">
+<meta name="description" content="Un blog sobre corrupción, violencia y fallas del Estado">
+<meta name="generator" content="Hugo 0.72.0" />
+<title>¿Dónde está el Estado? Construyendo el índice de presencia del Estado</title>
+<link rel="shortcut icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="/css/monosocialiconsfont.css">
+
+
+
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="The Blue Hare" />
+
+
+<meta property="og:title" content="¿Dónde está el Estado? Construyendo el índice de presencia del Estado" />
+<meta property="og:description" content="¿Dónde está el Estado?Muchas veces nos preguntamos, ¿dónde está el Estado? ¿Dónde muestra más su presencia?. Nuestra opinión es que existen suficientes datos como para ensayar una respuesta interesante a esta pregunta. En el presente post iremos paso a paso en la creación de un índice de presencia del Estado en cada distrito del Perú y un número de subíndices de distintos tipos de presencia del Estado
+Métodos a usar: Componentes principales, Análisis de Factores, Componentes independientes, Partial Least Squares Structural Modeling." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/d%C3%B3nde-est%C3%A1-el-estado-construyendo-el-%C3%ADndice-de-presencia-del-estado/" />
+<meta property="article:published_time" content="2020-06-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-06-06T00:00:00+00:00" />
+
+
+<meta itemprop="name" content="¿Dónde está el Estado? Construyendo el índice de presencia del Estado">
+<meta itemprop="description" content="¿Dónde está el Estado?Muchas veces nos preguntamos, ¿dónde está el Estado? ¿Dónde muestra más su presencia?. Nuestra opinión es que existen suficientes datos como para ensayar una respuesta interesante a esta pregunta. En el presente post iremos paso a paso en la creación de un índice de presencia del Estado en cada distrito del Perú y un número de subíndices de distintos tipos de presencia del Estado
+Métodos a usar: Componentes principales, Análisis de Factores, Componentes independientes, Partial Least Squares Structural Modeling.">
+<meta itemprop="datePublished" content="2020-06-06T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-06-06T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="375">
+
+
+
+<meta itemprop="keywords" content="Construcción de índices,Econometría,R,Instituciones Públicas,Servicios Públicos," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="¿Dónde está el Estado? Construyendo el índice de presencia del Estado"/>
+<meta name="twitter:description" content="¿Dónde está el Estado?Muchas veces nos preguntamos, ¿dónde está el Estado? ¿Dónde muestra más su presencia?. Nuestra opinión es que existen suficientes datos como para ensayar una respuesta interesante a esta pregunta. En el presente post iremos paso a paso en la creación de un índice de presencia del Estado en cada distrito del Perú y un número de subíndices de distintos tipos de presencia del Estado
+Métodos a usar: Componentes principales, Análisis de Factores, Componentes independientes, Partial Least Squares Structural Modeling."/>
+<meta name="twitter:site" content="@https://www.twitter.com/"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+ 		<a href='/about/'>About</a>
+  	
+
+	
+		<a class="cta" href="/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>¿Dónde está el Estado? Construyendo el índice de presencia del Estado</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        June 6, 2020
+        <br>
+        
+        
+            
+                <a href="/tags/construcci%C3%B3n-de-%C3%ADndices">Construcción de índices</a>
+            
+                <a href="/tags/econometr%C3%ADa">Econometría</a>
+            
+                <a href="/tags/r">R</a>
+            
+                <a href="/tags/instituciones-p%C3%BAblicas">Instituciones Públicas</a>
+            
+                <a href="/tags/servicios-p%C3%BAblicos">Servicios Públicos</a>
+            
+        
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        
+
+
+<div id="dónde-está-el-estado" class="section level2">
+<h2>¿Dónde está el Estado?</h2>
+<p>Muchas veces nos preguntamos, ¿dónde está el Estado? ¿Dónde muestra más su presencia?. Nuestra opinión es que existen suficientes datos como para ensayar una respuesta interesante a esta pregunta. En el presente post iremos paso a paso en la creación de un índice de presencia del Estado en cada distrito del Perú y un número de subíndices de distintos tipos de presencia del Estado</p>
+<ul>
+<li><strong>Métodos a usar:</strong> Componentes principales, Análisis de Factores, Componentes independientes, Partial Least Squares Structural Modeling.</li>
+<li><strong>Unidad de observación:</strong> Distritos</li>
+<li><strong>Bases de datos a utilizar:</strong> Censo 2017, Registro Nacional de Denuncias y Faltas 2017, Censo Nacional de Comisarías, Censo a Municipalidades 2017</li>
+</ul>
+</div>
+<div id="primero-hagámonos-una-idea" class="section level2">
+<h2>Primero, hagámonos una idea:</h2>
+<pre class="r"><code>library(knitr)
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message = FALSE)
+
+# read files
+
+library(readxl)
+
+# data wrangling
+library(tidyverse)</code></pre>
+<pre><code>## -- Attaching packages ------------------------------------------------------------------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v ggplot2 3.3.0     v purrr   0.3.3
+## v tibble  2.1.3     v dplyr   0.8.5
+## v tidyr   1.0.2     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.5.0</code></pre>
+<pre><code>## -- Conflicts ---------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(broom)
+
+# Graphs
+
+library(leaflet)
+library(ggthemes)
+library(ggthemr)
+library(plotly)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plotly&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     last_plot</code></pre>
+<pre><code>## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter</code></pre>
+<pre><code>## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     layout</code></pre>
+<pre class="r"><code>library(plotlyGeoAssets)
+
+# GIS and GEOS
+
+library(sf)</code></pre>
+<pre><code>## Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3</code></pre>
+<pre class="r"><code>library(raster)</code></pre>
+<pre><code>## Loading required package: sp</code></pre>
+<pre><code>## 
+## Attaching package: &#39;raster&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:plotly&#39;:
+## 
+##     select</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     select</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     extract</code></pre>
+<pre class="r"><code># tables
+
+library(kableExtra)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;kableExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     group_rows</code></pre>
+<pre class="r"><code>library(gt)
+
+# formatting
+
+library(scales)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;scales&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     discard</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
+## 
+##     col_factor</code></pre>
+<pre><code>## Reading layer `DISTRITOS&#39; from data source `C:\Users\Kilder\OneDrive\Tesis\raw_data\shapefiles\distritos\DISTRITOS.shp&#39; using driver `ESRI Shapefile&#39;
+## Simple feature collection with 1873 features and 10 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -81.32823 ymin: -18.35093 xmax: -68.65228 ymax: -0.03860597
+## CRS:            4326</code></pre>
+<p><img src="/post/2020-06-06-dónde-está-el-estado-construyendo-el-índice-de-presencia-del-estado_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    <a href="https://twitter.com/Your%20Twitter%20account">
+    <img class="avatar" src="/images/avatar.png">
+    <div>
+        <span class="dark">The Blue Hare</span>
+        <span>Sobre la pared de piedra</span>
+    </div>
+    </a>
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=%2fpost%2fd%25C3%25B3nde-est%25C3%25A1-el-estado-construyendo-el-%25C3%25ADndice-de-presencia-del-estado%2f - %c2%bfD%c3%b3nde%20est%c3%a1%20el%20Estado%3f%20Construyendo%20el%20%c3%adndice%20de%20presencia%20del%20Estado by @Your%20Twitter%20account"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "spf13" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/post/la-relaci%C3%B3n-entre-la-corrupci%C3%B3n-y-la-violencia-en-el-per%C3%BA-i/">La relación entre la corrupción y la violencia en el Perú I<aside class="dates">Jun 6 2020</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    
+    <a class="symbol" href="https://www.facebook.com/">
+        circlefacebook
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/sefran12">
+        circlegithub
+    </a>
+    
+    <a class="symbol" href="https://www.linkedin.com/">
+        circlelinkedin
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/">
+        circletwitterbird
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2020 The Blue Hare
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+</body>
+</html>

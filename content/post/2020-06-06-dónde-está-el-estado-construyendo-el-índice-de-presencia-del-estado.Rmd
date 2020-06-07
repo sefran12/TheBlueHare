@@ -1,0 +1,81 @@
+---
+title: ¿Dónde está el Estado? Construyendo el índice de presencia del Estado
+author: Kilder Urrutia
+date: '2020-06-06'
+slug: dónde-está-el-estado-construyendo-el-índice-de-presencia-del-estado
+categories:
+  - Estado
+  - Instituciones Públicas
+tags:
+  - Construcción de índices
+  - Econometría
+  - R
+  - Instituciones Públicas
+  - Servicios Públicos
+---
+
+## ¿Dónde está el Estado?
+
+Muchas veces nos preguntamos, ¿dónde está el Estado? ¿Dónde muestra más su presencia?. Nuestra opinión es que existen suficientes datos como para ensayar una respuesta interesante a esta pregunta. En el presente post iremos paso a paso en la creación de un índice de presencia del Estado en cada distrito del Perú y un número de subíndices de distintos tipos de presencia del Estado
+
+* __Métodos a usar:__ Componentes principales, Análisis de Factores, Componentes independientes, Partial Least Squares Structural Modeling.
+* __Unidad de observación:__ Distritos
+* __Bases de datos a utilizar:__ Censo 2017, Registro Nacional de Denuncias y Faltas 2017, Censo Nacional de Comisarías, Censo a Municipalidades 2017
+
+## Primero, hagámonos una idea:
+
+```{r}
+library(knitr)
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message = FALSE)
+
+# read files
+
+library(readxl)
+
+# data wrangling
+library(tidyverse)
+library(broom)
+
+# Graphs
+
+library(leaflet)
+library(ggthemes)
+library(ggthemr)
+library(plotly)
+library(plotlyGeoAssets)
+
+# GIS and GEOS
+
+library(sf)
+library(raster)
+
+# tables
+
+library(kableExtra)
+library(gt)
+
+# formatting
+
+library(scales)
+
+```
+
+```{r}
+geoperu <- read_excel("C:/Users/Kilder/OneDrive/Tesis/raw_data/xls/GEODATA/GeoPeru_Peru_Distritos.xlsx")
+distritos <- st_read('C:/Users/Kilder/OneDrive/Tesis/raw_data/shapefiles/distritos/DISTRITOS.shp')
+
+geomap <- left_join(distritos, geoperu, by=c("DISTRITO" = "nom_dist"))
+```
+```{r}
+geomap %>% 
+  ggplot() +
+  geom_sf(aes(fill = pvs_agua_r), color = NA, na.rm = FALSE) +
+    labs(title ='Acceso a agua en el Perú',
+      subtitle = 'Porcentaje de hogares sin acceso a una red de agua',
+         caption = 'CENSO (2013). Elaboración propia.',
+         fill = 'Porcentaje de hogares') +
+    theme_minimal() +
+  scale_fill_continuous(type = 'viridis') +
+    theme(axis.text = element_blank())
+```
+
