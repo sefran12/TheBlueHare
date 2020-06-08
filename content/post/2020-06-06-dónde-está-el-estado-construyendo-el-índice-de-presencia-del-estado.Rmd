@@ -80,7 +80,7 @@ geomap %>%
 ```
 
 ```{r fig.height=7, fig.width=10}
-geomap %>% 
+map_agua <- geomap %>% 
   ggplot() +
   geom_sf(aes(fill = nbi3_porc), color = NA, na.rm = FALSE) +
     labs(title ='Acceso a agua en el Perú',
@@ -90,7 +90,12 @@ geomap %>%
     theme_minimal() +
   scale_fill_continuous(type = 'viridis') +
     theme(axis.text = element_blank())
+
+ggplotly(map_agua)
+
 ```
+
+
 
 ```{r fig.height=7, fig.width=10}
 geomap %>% 
